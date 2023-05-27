@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="main_layout.html">
+<div layout:fragment="siteContent">
+
+
+  <form action="/add-request" method="post">
+    <div class="container-fluid" style="width: 600px">
+      <div class="row">
+        <h6>ФИО:</h6>
+      </div>
+      <div class="row mb-4">
+        <input class="form-control" type="text" name="userName" placeholder="ФИО" required>
+      </div>
+    </div>
+
+    <div class="container-fluid" style="width: 600px">
+      <div class="row">
+        <h6>Курс:</h6>
+      </div>
+      <div class="row mb-4">
+        <select class="form-select" name="course.id" required>
+          <option value="" disabled selected hidden>
+            Выберите курс
+          </option>
+          <option th:each="cours : ${courses}"
+                  th:value="${cours.id}"
+                  th:text="${cours.courseName}">
+          </option>
+        </select>
+
+      </div>
+    </div>
+
+    <div class="container-fluid" style="width: 600px">
+      <div class="row">
+        <h6>Телефон:</h6>
+      </div>
+      <div class="row mb-4">
+        <input class="form-control" type="text" pattern="[0-9+]*" inputmode="numeric" name="phone" placeholder="+7(7__)_______" required>
+      </div>
+    </div>
+
+    <div class="container-fluid" style="width: 600px">
+      <div class="row">
+        <h6>Комментарии:</h6>
+      </div>
+      <div class="row mb-4">
+        <textarea class="form-control" rows="6" placeholder="Комментарии" name="commentary" required></textarea>
+      </div>
+    </div>
+
+    <div class="container-fluid" style="width: 600px">
+      <div class="row mb-4">
+        <div class="col-4">
+          <button class="btn btn-success" style="margin-left: -10px">Добавить заявку</button>
+        </div>
+      </div>
+    </div>
+
+
+  </form>
+
+
+
+
+</div>
+</html>

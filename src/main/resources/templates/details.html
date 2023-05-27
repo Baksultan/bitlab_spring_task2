@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en"
+      xmlns:th = "http://www.thymeleaf.org"
+      xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="main_layout.html">
+<div layout:fragment="siteContent">
+
+    <div class="container text-center" th:style="${req.isHandled()} ? 'color: green;' : 'color: red;'">
+        <h3 th:text="${req.isHandled()} ? 'Обработанная заявка' : '*** Новая необработанная заявка ***'"></h3>
+    </div>
+
+    <div class="container-fluid" style="width: 600px">
+        <div class="row">
+            <h6>ФИО:</h6>
+        </div>
+        <div class="row mb-4">
+            <input class="form-control" type="text" disabled th:value="${req.getUserName()}">
+        </div>
+    </div>
+
+    <div class="container-fluid" style="width: 600px">
+        <div class="row">
+            <h6>Курс:</h6>
+        </div>
+        <div class="row mb-4">
+            <input class="form-control" type="text" disabled th:value="${req.course.courseName}">
+        </div>
+    </div>
+
+    <div class="container-fluid" style="width: 600px">
+        <div class="row">
+            <h6>Телефон:</h6>
+        </div>
+        <div class="row mb-4">
+            <input class="form-control" type="text" disabled th:value="${req.getPhone()}">
+        </div>
+    </div>
+
+    <div class="container-fluid" style="width: 600px">
+        <div class="row">
+            <h6>Комментарии:</h6>
+        </div>
+        <div class="row mb-4">
+            <textarea class="form-control" rows="6" disabled th:text="${req.getCommentary()}"></textarea>
+        </div>
+    </div>
+
+
+    <div class="container" style="width: 600px">
+        <div class="row">
+            <div class="col-4" th:if="${!req.isHandled()}">
+                <form action="/handling" method="post" >
+                    <input type="hidden" name="id" th:value="${req.getId()}">
+                    <button class="btn btn-success" style="width: 180px;">
+                        Обработать Заявку
+                    </button>
+                </form>
+            </div>
+            <div class="col-4">
+                <button class="btn btn-danger" data-bs-toggle="modal" data-bs-target="#exampleModal" style="width: 180px">Удалить заявку</button>
+            </div>
+            <!-- Modal -->
+            <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                <div class="modal-dialog">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h1 class="modal-title fs-5" id="exampleModalLabel">Удалить заявку</h1>
+                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                        </div>
+                        <div class="modal-body">
+                            Вы уверены что хотите удалить?
+                        </div>
+                        <div class="modal-footer">
+                            <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Закрыть</button>
+                            <form action="/delete" method="post">
+                                <input type="hidden" name="id" th:value="${req.getId()}">
+                                <button type="submit" class="btn btn-danger">Да, уверен</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+
+</div>
+</html>
